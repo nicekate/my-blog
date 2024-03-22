@@ -1,0 +1,184 @@
+---
+title: 'Gemini 1.5 Pro 探索，它的长上下文能力比 GPT4 好用在哪？'
+date: '2024-03-11'
+tags: ['AI']
+draft: false
+summary: Gemini 1.5 Pro是一个中等规模的多模态模型，优化了跨多种任务的扩展能力，并且与迄今为止最大的模型1.0 Ultra在性能上相当。
+---
+
+`https://blog.google/technology/ai/google-gemini-next-generation-model-february-2024/`
+
+2月15日，谷歌在官方博客上介绍了下一代AI模型：Gemini 1.5。这个模型在多个维度上展示了显著的改进，包括一种新的混合专家（MoE）架构，使其在训练和服务时更加高效。
+
+Gemini 1.5 Pro是首个发布的版本，它是一个中等规模的多模态模型，优化了跨多种任务的扩展能力，并且与迄今为止最大的模型1.0 Ultra在性能上相当。
+
+该模型还引入了一个长上下文理解的突破性实验特性。（当然现在出了 Claude 3，下图要改改）
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/wnxh8n.png)
+
+该模型能够处理大量的信息，包括**长达1小时的视频、11小时的音频、超过30,000行的代码库或超过700,000字的文本**。它还能够在一个给定的提示中分析、分类和总结大量内容。
+
+Gemini 1.5 Pro可以在Google AI Studio中使用。
+
+**申请链接**  
+
+`https://aistudio.google.com/app/waitlist/97445851`
+
+在 Google 的研究中， 还成功测试了多达 1000 万个代币。
+
+* * *
+
+Google 发布的示例中，有一个视频特别引起了我的注意，展示了长上下文模型的出色应用。
+
+https://youtu.be/SSnsmqIj1MI
+
+该演示使用了超过80万个token的 three.js 示例代码，进行了如下测试：
+
+**动画控制**
+
+\- 问题：询问“小东京演示”中的动画是如何控制的。
+
+\- 发现：动画嵌入于glTF模型中。
+
+**代码定制**
+
+\- 目标：增加一个滑块以控制动画速度。
+
+\- 改动：在原有 three.js 场景基础上添加了控制动画速度的滑块，通过GUI库实现，并将其与场景中的mixer连接。
+
+**多模态输入**
+
+\- 操作：**提供一个演示的截图，并询问相关代码的位置。**
+
+\- 结果：模型能够通过图像匹配找到相应的代码示例。
+
+**代码修改**
+
+1\. 地形修改：如何修改代码使地形更平坦。
+
+\-  解决方案：**定位到“generateHeight”函数，并指出具体修改方法**。
+
+2\. 3D文本演示修改：更改文本为“goldfish”并使材质看起来非常光滑和金属质感。
+
+\-  修改说明：**指出需要更改的代码行**，并解释了如何调整材料属性以获得闪亮效果。
+
+**性能与局限**
+
+\- 回应每个提示大约需要60秒。
+
+\- 返回的代码并不总是完美无缺。
+
+* * *
+
+Google 的博客里下面几段话非常吸引我：
+
+“Gemini 1.5 Pro 展现了它在“上下文学习”方面的卓越能力，这意味着它能够**仅通过分析一段较长文本中的信息即可掌握新技能，而无需进行额外的模型微调。**
+
+我们将这项技能应用于“从一本书学习机器翻译”(Machine Translation from One Book, MTOB) 的基准测试中，此测试旨在评估模型处理前所未见信息的能力。
+
+在接受了一本有关Kalamang语言的语法手册的情况下——Kalamang是一种全球讲者不足200人的语言——Gemini 1.5 Pro 成功学会了如何将英文翻译成Kalamang语，其翻译水平与直接从这些材料学习的人类相媲美。”
+
+* * *
+
+**Gemini 1.5 技术报告**
+
+`https://storage.googleapis.com/deepmind-media/gemini/gemini_v1_5_report.pdf`
+
+报告提到研究人员使用了一系列诊断测试和现实任务来评估 Gemini 1.5 Pro 的长上下文能力，包括：  
+
+**困惑度（Perplexity）**
+
+定义：困惑度是衡量语言模型预测序列中下一个词的能力的标准指标。困惑度越低，表示模型预测下一个词的准确度越高。这个指标对于长序列特别重要，因为它可以帮助我们了解模型在处理长文本时的持续预测能力。
+
+**文本/视频/音频 Haystack**
+
+定义：这个测试旨在评估模型在长文本、视频或音频资料中检索特定信息的能力。这种类型的任务测试模型理解和处理大量数据的能力，特别是在需要从复杂或密集的信息源中提取关键细节时。
+
+**长文档问答**
+
+定义：长文档问答评估模型从长文档中提取答案的能力。这包括理解和分析长篇文章、报告或书籍中的信息，并准确回答关于文档内容的问题。
+
+**长上下文自动语音识别**
+
+定义：这项测试评估模型转录长音频的能力，特别是在理解和处理自然语言对话、讲座或会议记录等长时间音频中的表现。长上下文自动语音识别对于提高模型对长时间语音数据的处理能力至关重要。
+
+**从一本书中学习翻译一门新语言**
+
+定义：这是测试模型从有限的语言材料（如一本书）中学习翻译能力的方法。这不仅考验了模型的语言理解和生成能力，还测试了其在有限数据条件下学习新知识的能力。
+
+* * *
+
+**根据 Gemini 1.5 Pro 的能力，我认为它可以应用于以下多个领域。**
+
+1\. **智能代码助手**：开发者可将代码库完整上传至Gemini 1.5 Pro，使其深入理解代码的结构与逻辑。Gemini能够提供精确的代码补全、错误诊断和性能优化建议，极大地提高了编程效率。开发者亦可通过自然语言查询，以便快速掌握代码中的关键逻辑和结构。
+
+2\. **智能园艺顾问**：园艺爱好者可上传植物生长视频至Gemini 1.5 Pro，平台将识别植物种类，分析健康状况，并提供个性化的养护建议，如浇水、施肥方案和病虫害防治。
+
+3\. **文献智能分析**：研究人员可将众多学术论文上传至Gemini 1.5 Pro，让其迅速把握文献核心，智能总结出研究重点、最新发现。此外，Gemini能够比较多篇论文，揭示它们之间的差异和联系，从而激发新的研究灵感。
+
+4\. **视频内容智能总结**：视频创作者可上传长达一小时的视频素材至Gemini 1.5 Pro，平台将自动提取关键信息和精彩片段，并生成精确的文字摘要。Gemini还能对视频内容进行智能分类和标签化，便于创作者快速检索和重复利用素材。
+
+5\. **金融市场智能分析**：金融分析师可以上传大量的财经新闻、行业报告、上市公司财务报告等至Gemini 1.5 Pro，让其迅速整理出市场动态。Gemini能够识别数据中的关键趋势和洞察，以易于理解的方式展现，大幅度节省了人工分析和报告撰写的时间。
+
+6\. **小说写作助手**：小说家可将创意碎片、角色设定、故事大纲等上传至Gemini 1.5 Pro。Gemini 将分析这些素材，提供情节创意、角色塑造和文风优化的建议，帮助作者提升写作技巧。此外，Gemini 将提供针对写作困惑的专业指导，并在作品完成后，提出细致的修改意见。
+
+**提到智能代码助手，这里推荐快速下载文档的工具：**gpt-crawler**。**
+
+`https://github.com/BuilderIO/gpt-crawler`
+
+如 gpt-crawler 的官网展示，修改的参数很少，很方便就能将文档下载下来。  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/wplbft.png)
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/hpeoah.png)
+
+Gemini 1.5 Pro 简单上手
+
+昨天收到的 Gemini 1.5 Pro 申请通过的邮件。  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/25uxc0.png)
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/t1xjlb.png)
+
+Gemini 1.5 Pro 支持上传的格式很多。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/dp72wk.png)
+
+进入页面后，请第一时间**调整安全设置**。  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/gwb8nq.png)
+
+Temperature 和 Top P 默认无法修改。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/wqdwvt.png)
+
+上传PDF文档后，会提示我它只能获取文字，不包括图片。（这里更建议Claude 3 来分析图文并茂的PDF文档）  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/wy2e68.png)
+
+Gemini 1.5 Pro 总结能力和反应速度还不错（约1分钟），需要在提示词里强调输出中文，否则它默认输出英文。  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/2uwnmn.png)
+
+当代码超过128K时，Gemini 1.5 Pro 就有了用武之地。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/03bgbn.png)
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/wzd9c9.png)
+
+不过会出现幻觉（后续 Gemini 1.5 Pro 开放 Temperature 和 Top P 后可调整精度）。
+
+我上传了金庸先生《笑傲江湖》的全文，等待了约8分钟，得到如下回复，我查了下，第一句结果正确，但是后面对应的原文不正确。  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/gp0adg.png)
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/cmorgj.png)
+
+Gemini 15 Pro 用来搜索说明书。  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/w5e7a9.png)
+
+除了以上，我还尝试上传14分钟的视频让 Gemini 1.5 Pro 把视频里出现的代码写下来，效果也能有个80分，看来 Gemini 1.5 Pro 很适合做课堂笔记。
+
+以上内容便是今天的介绍。可以预期，未来模型处理的上下文长度将会进一步增长。让大模型之争来得更猛烈些吧。  
+

@@ -1,0 +1,82 @@
+---
+title: '1000万字免费长文档处理服务 | 通义千问刷新 AI 文档助手新高度'
+date: '2024-03-22'
+tags: ['AI']
+draft: false
+summary: 通义千问宣布了一项重大升级，为所有用户提供免费的1000万字长文档处理服务。我猜测背后可能采用了检索增强生成(RAG)技术。
+---
+
+AI领域的热门助手 Kimi 最近引起了广泛关注，特别是在其推出2百万字的无损上下文测试版之后，Kimi 火爆的消息甚至登上了财经新闻头条。  
+
+同时，Gemini 1.5 Pro也已经向公众开放，该工具能够处理高达1百万 tokens 的数据量。此外，根据我在[探讨Gemini 1.5 Pro](http://mp.weixin.qq.com/s?__biz=MzI5MjQ3ODY3Mw==&mid=2247486629&idx=1&sn=24209fe524051dfb7c84280ae1419dd8&chksm=ec01871bdb760e0d00ecc68ce3bb308ff5b179b952201676b74e802321ea095452e5cd7695f9&scene=21#wechat_redirect) 的文章中提到的，Google的研究团队已经成功地在测试中处理了多达1千万 tokens 的巨量数据。
+
+来自3月22日的新闻，阿里巴巴旗下的通义千问平台宣布了一项重大升级，它为所有用户提供免费的1千万字长文档处理服务，以支持更大规模的文档分析。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/ak2jwt.png)
+
+字数和 token 的区别示例：
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/64h578.png)
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/923rak.png)
+
+一开始看到通义千问的这则新闻时，令我有些困惑，它提供的是1千万字的长文档处理能力，而不是1千万 tokens。而且，这项服务向所有用户免费开放。我猜测，很可能这背后采用的是RAG（检索增强生成）技术。
+
+想要深入了解 RAG 与上下文窗口的比较，下面这篇文章非常值得一读：
+
+文章标题-RAG 与 GPT-4 的上下文窗口比较：准确性、成本和响应速度
+
+```
+https://baoyu.io/translations/rag/rag-vs-context-window-in-gpt4-accuracy-cost
+```
+
+了解了相关理论后，接下来分享我的通义千问文档处理体验。
+
+```
+https://tongyi.aliyun.com/qianwen/
+```
+
+首页选择“文档解析”
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/hcs1gu.png)
+
+必须承认，能够处理高达1000万字的能力确实令人印象深刻，而且允许上传的文件数量众多，单个文件的大小限制也相当宽容。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/1jhiwu.png)
+
+**与电子书对话**
+
+我格外欣赏其支持上传 Epub 格式的特性，这让我可以直接与电子书互动，无需将它们转换为 txt 格式。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/0v566b.png)
+
+上图里的电子书对应的纸质书超过600页（每页约 A4 大小），相比于翻阅纸质书籍的不便，直接进行查询显得更加简单方便。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/acz078.png)
+
+****分析**代码库**
+
+在此，我采用了 CrewAI 的代码库进行了进一步的测试。
+
+Gemini 1.5 Pro 1M 无法胜任，因为它已超出了自身的处理极限。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/magjvn.png)
+
+Claude 3 200k 也不行，超过它极限了。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/f3prei.png)
+
+虽然通义千问的处理结果可能只能给出70分的评价，但考虑到上传的代码库的内容很多，其他AI无法处理时，这样的得分也颇为出色。
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/6yje9v.png)
+
+小技巧：  
+我利用 REPOTOTEXTFORLLMS 这个代码库来访问 CrewAI 的代码，因为它在复制代码供 LLM 分析时非常方便。
+
+```
+https://github.com/Doriandarko/RepoToTextForLLMs
+```
+
+我相信通义千问在处理长文档方面的能力将会持续提升，并变得越来越出色。  
+
+* * *
