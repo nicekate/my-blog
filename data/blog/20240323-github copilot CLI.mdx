@@ -1,0 +1,165 @@
+---
+title: 'GitHub Copilot 的命令行界面（CLI）版本现已正式发布 | 使用指南'
+date: '2024-03-23'
+tags: ['AI', 'GitHub Copilot', 'CLI']
+draft: false
+summary: 2024年，GitHub Copilot 的命令行界面（CLI）版本正式发布，为开发者提供了一种新的、高效的编程辅助方式。通过 Copilot 的命令行界面版本，用户可以在不离开终端的情况下，直接获取命令建议和解释，极大地提高了开发效率。此版本还引入了多种便捷的别名支持，如 Bash、PowerShell 和 Zsh，使得使用 GitHub Copilot 变得更加简单便捷。
+---
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/ykceti.png)  
+
+```
+https://github.blog/changelog/2024-03-21-github-copilot-general-availability-in-the-cli/
+```
+
+通过 Copilot 的命令行界面版本，用户可以利用 GitHub Copilot 的强大功能，在不离开终端的情况下获取**命令建议和解释**。
+
+GitHub Copilot 的命令行界面版本还新增了几个便捷的别名支持，包括 Bash、PowerShell 和 Zsh。通过新的 gh copilot 别名命令，可以为 **ghcs 和 ghce** 别名生成特定于 shell 的配置，这些别名让用户以更少的键入操作快速进入 gh copilot 的体验。
+
+**先决条件**
+--------
+
+*   若要在 CLI 中使用 Copilot，**必须具有有效的 GitHub Copilot 订阅**。
+    
+*   要在 CLI 中使用 Copilot，必须安装 GitHub CLI。
+    
+```
+https://github.com/cli/cli#installation
+```
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/4qg4j6.png)  
+
+**在 CLI 中安装 Copilot**  
+
+1\. 请运行 **gh auth login** 以使用 GitHub 帐户进行身份验证 
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/j73z7p.png)
+
+2\. 要在 CLI 中安装 Copilot，请运行 **gh extension install github/gh-copilot**
+
+要在 CLI 中更新 Copilot，请运行 **gh extension upgrade gh-copilot**
+
+运行 **gh copilot --help** 会出现以下内容：
+
+```
+Your AI command line copilot.
+
+Usage:
+  copilot [command]
+
+Examples:
+
+$ gh copilot suggest "Install git"
+$ gh copilot explain "traceroute github.com"
+
+Available Commands:
+  alias       Generate shell-specific aliases for convenience
+  config      Configure options
+  explain     Explain a command
+  suggest     Suggest a command
+
+Flags:
+  -h, --help      help for copilot
+  -v, --version   version for copilot
+
+Use "copilot [command] --help" for more information about a command.
+```
+
+---
+
+**在 CLI 中为 Copilot 设置别名**
+-------------------------
+
+1\. 使用 **gh extension list** 验证安装
+---------------------------------
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/byau0x.png)
+
+2\. 使用 **gh copilot alias --help** 查看 bash、PowerShell 和 Zsh 的帮助程序别名。
+
+```
+Generate optional shell-specific aliases and functions for invoking gh copilot commands.
+
+These aliases and functions are not required to use gh copilot, but they can be useful for convenience as they require fewer keystrokes and aid in executing suggested commands:
+
+- `ghce`: wraps `gh copilot explain`
+- `ghcs`: wraps `gh copilot suggest`, adding support for executing suggestions
+
+Usage:
+  copilot alias <shell> [flags]
+
+Examples:
+
+# Add aliases to Bash configuration
+$ echo 'eval "$(gh copilot alias -- bash)"' >> ~/.bashrc
+
+# Add aliases to PowerShell profile
+$ $GH_COPILOT_PROFILE = Join-Path -Path $(Split-Path -Path $PROFILE -Parent) -ChildPath "gh-copilot.ps1"
+$ gh copilot alias -- pwsh | Out-File ( New-Item -Path $GH_COPILOT_PROFILE -Force )
+$ echo ". $GH_COPILOT_PROFILE" >> $PROFILE
+
+# Add aliases to Zsh configuration
+$ echo 'eval "$(gh copilot alias -- zsh)"' >> ~/.zshrc
+
+
+Flags:
+  -h, --help   help for alias
+```
+
+根据你的 shell 类型复制并获取适当的命令。
+
+bash: 是Linux和Unix系统上最常用的命令行界面，脚本语法比较传统，非常稳定和广泛支持。
+
+PowerShell: 微软开发的命令行界面，具有强大的脚本功能，特别适合Windows系统管理和自动化任务。
+
+zsh: 类似于bash，但包含更多的功能和定制选项，例如更好的自动补全和主题支持，是macOS的默认命令行界面。
+
+我的电脑是Mac，因此我直接将 **echo 'eval "$(gh copilot alias -- zsh)"' >> ~/.zshrc** 复制到终端运行后再运行 **source ~/.zshrc** 
+
+3\. 运行 **ghce** ，然后输入命令，让 Copilot 对其进行解释。
+
+运行 **ghcs** ，然后运行您想要完成的任务以获取命令建议。
+
+如果不设置**别名，可以参考下面的例子来写命令**
+
+```
+$ gh copilot suggest "Install git"
+$ gh copilot explain "traceroute github.com"
+```
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/9zf3y3.png)  
+
+使用 GitHub Copilot CLI 就像使用一个半自动 Open Interpreter，通过简单的命令就能轻松解决许多问题，特别是对于那些不太熟悉命令行的用户来说，它极大地简化了操作。  
+
+例如下图，通过一个命令，我能迅速地从所有AI绘图文件夹中检索出我用DALL·E 3 创作下载的一千多张图片。  
+
+**ghcs 示例**
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/4i661s.png)
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/l9i8eo.png)
+
+有时候，如果 Copilot 的回答不尽人意，你可以要求它**提供新的答案或调整你的提示词**来改善结果。
+
+**ghce 示例**  
+
+![图片](http://blog-bucket-20240321.oss-cn-hongkong.aliyuncs.com/blog/fss9ov.png)
+
+简单总结一下今天介绍的CLI 的 GitHub Copilot。
+
+编码之中遇难题，Copilot 助力解疑惑。
+
+命令行内寻路径，文档代码皆可找。
+
+自动化脚本易如反，新知识无需再搜罗。
+
+终端内外皆广阔，开发效率更提高。
+
+* * *
+
+精选历史文章，请看这里：
+
+[Copilot Pro 现在可以免费试用一个月 | 使用分享](http://mp.weixin.qq.com/s?__biz=MzI5MjQ3ODY3Mw==&mid=2247486660&idx=1&sn=278ada2f2db1a66cb6537fcdd7cce32d&chksm=ec01877adb760e6cad4a1216995e625e1ff2a90cbfd0e1114cab1a9d76759bf5df263c4f8704&scene=21#wechat_redirect)
+
+[Gemini 1.5 Pro 探索，它的长上下文能力比 GPT4 好用在哪？](http://mp.weixin.qq.com/s?__biz=MzI5MjQ3ODY3Mw==&mid=2247486629&idx=1&sn=24209fe524051dfb7c84280ae1419dd8&chksm=ec01871bdb760e0d00ecc68ce3bb308ff5b179b952201676b74e802321ea095452e5cd7695f9&scene=21#wechat_redirect)  
+
+[Claude 3 深度探索：从提示技巧到高级 API 使用指南](http://mp.weixin.qq.com/s?__biz=MzI5MjQ3ODY3Mw==&mid=2247486598&idx=1&sn=b12f7c87cf7a71fac5ec451f6bc986ea&chksm=ec018738db760e2e106d24e78294ef95d1303d24388bc5f8e1ef6cbfae71078a56dae02d3516&scene=21#wechat_redirect)
